@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        .table{
+            width: 0%;
+            position: absolute;
+            right: 72%;
+            padding: 20px;
+        }
+    </style>
+
+    <script>
+        function convert(){
+           var from =  document.getElementById("from").value;
+           var  to = document.getElementById("to").value;
+           var xmlhttp = new XMLHttpRequest();
+           var url = "http://api.fixer.io/latest?symbols=" + from + "," +to;
+
+           xmlhttp.open("GET", url, true);
+           xmlhttp.send();
+
+           xmlhttp.onreadystatechange = function(){
+               if (xmlhttp.readyState == 4 && xmlhttp.status==200){
+                   var result = xmlhttp.responseText;
+                   var JsResult = JSON.parse(result);
+                   var oneUnit = JsResult.rates[to]/JsResult.rates[from];
+                   var amt = document.getElementById("fromAmount").value;
+                    document.getElementById("toAmount").value = (oneUnit*amt).toFixed(2);
+                   console.log(result);
+               }
+           }
+
+        }
+    
+    </script>
+
+</head>
+<body>
+    
+    <table class="table table-hover table-dark text-center" width="50%">
+        <th >Currency converter</th>
+        <tr>
+            <td><input type="text" name="" onkeyup="convert()" id="fromAmount" size="15" value="1" pattern="\d{1,5}" title="Only digits"></td>
+            <td>
+                <select name="" onchange="convert()" id="from">
+                    <option value="USD" selected>US Dollar(USD)</option>
+                    <option value="AUD"> Australian(AUD)</option>
+                    <option value="JPY">Japan Yen (JPY)</option>
+                    <option value="INR">Indian Rupee(INR)</option>
+                    <option value="CAD">Canadian Dollar(CAD)</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+                <td><input type="text" name="" id="toAmount" size="15" disabled></td>
+                <td>
+                    <select name="" onchange="convert()" id="to">
+                        <option value="USD">US Dollar(USD)</option>
+                        <option value="AUD"> Australian(AUD)</option>
+                        <option value="JPY" selected>Japan Yen (JPY)</option>
+                        <option value="INR">Indian Rupee(INR)</option>
+                        <option value="CAD">Canadian Dollar(CAD)</option>
+                    </select>
+                </td>
+            </tr>
+        
+    </table>
+
+</body>
+</html>
