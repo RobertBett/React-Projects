@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import './App.css';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props){
     super(props);
     this.state = {
@@ -28,11 +28,11 @@ class App extends Component {
     console.log('component did Mount')
   }
 
-  shouldComponentUpdate(nextProps,nextState){
-    console.log('UPDATE App.js inside shouldComponentUpdate', nextProps,nextState);
-    return nextState.persons !== this.state.persons || 
-            nextState.showPersons !== this.state.showPersons;
-  }
+  // shouldComponentUpdate(nextProps,nextState){
+  //   console.log('UPDATE App.js inside shouldComponentUpdate', nextProps,nextState);
+  //   return nextState.persons !== this.state.persons || 
+  //           nextState.showPersons !== this.state.showPersons;
+  // }
 
   componentWillUpdate(nextProps,nextState){
   console.log('UPDATE App.js inside component will update',nextProps,nextState)
